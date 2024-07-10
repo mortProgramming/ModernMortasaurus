@@ -6,12 +6,17 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Commands.ArmCommand;
-import frc.robot.Commands.ClawPistonControl;
-import frc.robot.Commands.DriveCommand;
+import frc.robot.Commands.Auton.Autons.Dance;
+import frc.robot.Commands.Auton.Autons.LiftArm;
+import frc.robot.Commands.Auton.Autons.MoveForward;
+import frc.robot.Commands.Teleop.ArmCommand;
+import frc.robot.Commands.Teleop.ClawPistonControl;
+import frc.robot.Commands.Teleop.DriveCommand;
 import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.utility.Peripherals;
@@ -26,26 +31,40 @@ public class RobotContainer {
 
   private final Drivetrain drivetrain = Drivetrain.getInstance();
   private final Arm arm = Arm.getInstance();
+   private SendableChooser<Command> autoChooser = new SendableChooser<Command>();
 
   public RobotContainer() {
     configureBindings();
+    autoChooser.setDefaultOption("None", null);
+    autoChooser.addOption("MoveForward", new MoveForward());
+    autoChooser.addOption("LiftArm", new LiftArm());
+    autoChooser.addOption("Dance", new Dance());
+
+    SmartDashboard.putData(autoChooser);
+
   }
 
   private void configureBindings() {
     drivetrain.setDefaultCommand(new DriveCommand(RobotContainer::getLeftJoystickY, RobotContainer::getRightJoystickY));
-    controller.a().onTrue(new ClawPistonControl(2));
-    // controller.x().onTrue(new ArmCommand(1));
-    arm.setDefaultCommand(new ArmCommand(RobotContainer::getLeftJoystickY));
+    arm.setDefaultCommand(new ArmCommand(RobotContainer::getLeftControllerY));
+    
+    controller.a().onTrue(new ClawPistonControl(0));
+    controller.b().onTrue(new ClawPistonControl(1));
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return autoChooser.getSelected();
   }
 
   public static double getLeftJoystickY() {
-		return leftJoy.getY();
+		return -leftJoy.getY();
 	}
+
   public static double getRightJoystickY() {
-		return rightJoy.getY();
+		return -rightJoy.getY();
 	}
+
+  public static double getLeftControllerY() {
+    return controller.getLeftY();
+  }
 }

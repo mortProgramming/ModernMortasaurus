@@ -7,6 +7,7 @@ package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.utility.DrivetrainConstants.*;
@@ -48,8 +49,8 @@ public class Drivetrain extends SubsystemBase {
   //   }
 
     public void drive (double left, double right){
-      leftMaster.set(ControlMode.PercentOutput, left);
-      rightMaster.set(ControlMode.PercentOutput, -right);
+      leftMaster.set(ControlMode.PercentOutput, -left);
+      rightMaster.set(ControlMode.PercentOutput, right);
     }
 
   @Override
@@ -62,5 +63,9 @@ public class Drivetrain extends SubsystemBase {
       drivetrain = new Drivetrain();
     }
     return drivetrain;
+  }
+  public void drive(ChassisSpeeds chassisSpeeds) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'drive'");
   }
 }

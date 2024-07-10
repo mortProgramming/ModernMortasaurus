@@ -10,8 +10,8 @@ public class ClawMotor extends SubsystemBase {
 
 
     private static TalonSRX clawMotor;
-
-    private ClawMotor(){
+    //changed from 
+    public ClawMotor(){
         clawMotor = new TalonSRX(0);
     }
 

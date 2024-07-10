@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.Commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Arm;
@@ -23,13 +23,6 @@ public class ArmCommand extends Command{
     }
 
     public void execute() {
-        arm.setArmVelocity(0.2 * speed.getAsDouble());
-
-        
-
+        arm.setArmVelocity(0.4 * speed.getAsDouble());
     }
-
-
-
-    
 }

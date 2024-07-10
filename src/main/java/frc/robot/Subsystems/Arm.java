@@ -48,6 +48,10 @@ public Arm() {
 // make name better later
   // public void armUpwards(double motorUp){
   //   //
+  public void setMotor(double motorSpeed) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setMotor'");
+  }
     
 
   // }

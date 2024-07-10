@@ -1,4 +1,4 @@
-package frc.robot.Commands;
+package frc.robot.Commands.Teleop;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 

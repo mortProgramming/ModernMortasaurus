@@ -11,8 +11,8 @@ public class Pneumatic extends SubsystemBase {
     private static Pneumatic pneumatic;
 
 	private Compressor compressor;
-
-	private Pneumatic() {
+//changed from private to public 
+	public Pneumatic() {
 		compressor = new Compressor(PNEUMATIC_CONTROL_MODULE, PneumaticsModuleType.CTREPCM);
 		compressor.enableDigital();
 	}

@@ -20,8 +20,8 @@ public class ClawPiston extends SubsystemBase{
     
     private static DoubleSolenoid piston;
 
-    private ClawPiston(){
-          piston = new DoubleSolenoid(PNEUMATIC_PORT, PneumaticsModuleType.CTREPCM, OPEN_ARM_PISTON, CLOSE_ARM_PISTON);
+    public ClawPiston(){
+        piston = new DoubleSolenoid(PNEUMATIC_PORT, PneumaticsModuleType.CTREPCM, OPEN_ARM_PISTON, CLOSE_ARM_PISTON);
     }
 
 public static ClawPiston getInstance() {
