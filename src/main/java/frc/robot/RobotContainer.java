@@ -17,8 +17,12 @@ import frc.robot.Commands.Auton.Autons.MoveForward;
 import frc.robot.Commands.Teleop.ArmCommand;
 import frc.robot.Commands.Teleop.ClawPistonControl;
 import frc.robot.Commands.Teleop.DriveCommand;
+import frc.robot.Commands.Teleop.WristCommand;
+
 import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.Drivetrain;
+import frc.robot.Subsystems.Wrist;
+
 import frc.robot.utility.Peripherals;
 import frc.robot.utility.*;
 
@@ -31,6 +35,8 @@ public class RobotContainer {
 
   private final Drivetrain drivetrain = Drivetrain.getInstance();
   private final Arm arm = Arm.getInstance();
+  private final Wrist wrist = Wrist.getInstance(); 
+
    private SendableChooser<Command> autoChooser = new SendableChooser<Command>();
 
   public RobotContainer() {
@@ -47,11 +53,13 @@ public class RobotContainer {
   private void configureBindings() {
     drivetrain.setDefaultCommand(new DriveCommand(RobotContainer::getLeftJoystickY, RobotContainer::getRightJoystickY));
     arm.setDefaultCommand(new ArmCommand(RobotContainer::getLeftControllerY));
-    
+    wrist.setDefaultCommand(new WristCommand(RobotContainer::getRightControllerY));
+
     controller.a().onTrue(new ClawPistonControl(0));
     controller.b().onTrue(new ClawPistonControl(1));
   }
 
+  
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
@@ -66,5 +74,9 @@ public class RobotContainer {
 
   public static double getLeftControllerY() {
     return controller.getLeftY();
+  }
+
+  public static double getRightControllerY() {
+    return controller.getRightY();
   }
 }
